@@ -37,11 +37,42 @@ public class UserController {
     public ResponseEntity<?> getAllUser(){
         return new ResponseEntity<List<User>>(userService.getAllUsers(), HttpStatus.OK);
     }
-//    @PutMapping("user")
-//    public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable("id") int id)
-//    {
-//        ResponseEntity responseEntity ;
-//      User user1 = userService.
-//        return responseEntity;
-//    }
+    @GetMapping("user/{id}")
+    public ResponseEntity<?> searchByid(@PathVariable(value = "id") int id){
+        return new ResponseEntity<User>(userService.findById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("user")
+    public ResponseEntity<?> updateinfo(@RequestBody User user)
+    {
+        ResponseEntity responseEntity ;
+        try {
+            userService.updateUser(user);
+            responseEntity = new ResponseEntity<String>("updated successfull", HttpStatus.CREATED);
+        }
+        catch (Exception ex)
+        {
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+        }
+        return responseEntity;
+
+
+    }
+    @DeleteMapping("user/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") int id)
+    {
+        ResponseEntity responseEntity ;
+        try {
+            userService.deleteUser(id);
+            responseEntity = new ResponseEntity<String>("deleted successfull", HttpStatus.CREATED);
+        }
+        catch (Exception ex)
+        {
+            responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+        }
+        return responseEntity;
+
+
+    }
+
 }

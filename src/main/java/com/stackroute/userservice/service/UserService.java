@@ -8,8 +8,9 @@ public interface UserService {
 
     public User saveUser(User user);
 
-//    public User updateUser(User user);
-//    public User findById(int id);
+      public User updateUser(User user);
+      public void deleteUser(int id);
+    public User findById(int id);
 
     public List<User> getAllUsers();
 
